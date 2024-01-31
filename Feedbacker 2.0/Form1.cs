@@ -10,7 +10,7 @@ namespace Feedbacker_2._0
     {
         //string path = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
 
-        string savedInformationFilePath = Path.Combine(Application.StartupPath, "saved_info.json");
+        string savedInformationFilePath;
         BindingList<Course> courses = new BindingList<Course>();
         private int lastSelectedCourseIndex = -1; //used as part of a "hack" to allow editing course names in the combobox textfield
         private Boolean needSave = false;
@@ -28,11 +28,19 @@ namespace Feedbacker_2._0
             InitializeComponent();
             this.MinimumSize = new Size(795, 350);
 
+            needSave = false;
             this.FormClosing += Form1_FormClosing;
+
+            string appName = "Feedbacker 2.0";
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appName);
+            if (!Directory.Exists(appDataPath))
+            {
+                Directory.CreateDirectory(appDataPath);
+            }
+            savedInformationFilePath = Path.Combine(appDataPath, "saved_info.json");
 
 
             loadSavedInformation();
-            needSave = false;
 
             if (File.Exists(saveData.lastUsedFilePath))
             {
@@ -41,7 +49,7 @@ namespace Feedbacker_2._0
             {
                 createNewProject();
             }
-
+            needSave = false;
         }
 
         private void saveStoredInformation()
