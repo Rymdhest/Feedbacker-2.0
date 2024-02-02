@@ -241,6 +241,7 @@ namespace Feedbacker_2._0
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(778, 521);
+            MinimumSize = new Size(795, 350);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -252,7 +253,7 @@ namespace Feedbacker_2._0
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
-            Text = "Feedbacker 2.0";
+            Text = this.programName;
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Responses).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Assignments).EndInit();
@@ -260,20 +261,9 @@ namespace Feedbacker_2._0
             menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+
+            FormClosing += Form1_FormClosing;
         }
-
-        private void DataGridView_Responses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            needSave = true;
-        }
-
-
-
-
-
-
-
-
 
 
         #endregion

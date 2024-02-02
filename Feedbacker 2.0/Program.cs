@@ -1,11 +1,9 @@
-using System.Text.Json;
+using Feedbacker_2._0.Database;
 
 namespace Feedbacker_2._0
 {
     internal static class Program
     {
-
-
 
         /// <summary>
         ///  The main entry point for the application.
@@ -16,7 +14,10 @@ namespace Feedbacker_2._0
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            DatabaseManager database = new DatabaseManager();
+
+            Application.Run(new Form1(database));
 
 
         }
