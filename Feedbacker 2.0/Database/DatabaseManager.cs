@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Feedbacker_2._0.Form1;
 
 namespace Feedbacker_2._0.Database
 {
     public class DatabaseManager
     {
 
-        private BindingList<Course> courses = new BindingList<Course>();
+        private BindingList<Course> courses;
 
         public DatabaseManager()
         {
+            courses = new BindingList<Course>();
         }
 
         internal BindingList<Course> Courses { get => courses; set => courses = value; }
 
+        /// <summary>
+        /// Drops all tables from the database by executing SQL commands to remove courses, assignments, and responses tables.
+        /// </summary>
+        /// <param name="connection">The SQLite connection to the database.</param>
         private void dropAllTables(SQLiteConnection connection)
         {
             using var command = new SQLiteCommand(connection);
@@ -35,14 +34,24 @@ namespace Feedbacker_2._0.Database
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Saves the current state of the application's database to a SQLite database file.
+        /// Drops existing tables, creates new tables, and inserts data into the new tables.
+        /// </summary>
+        /// <param name="filePath">The file path where the database should be saved.</param>
         public void saveDatabaseToFile(string filePath)
         {
             using SQLiteConnection connection = establishDatabaseConnection(filePath);
             dropAllTables(connection);
-            createNewEmptyDatabas(connection);
-            insertDataToDatabase(connection);
+            createDatabaseTables(connection);
+            insertAllDataToDatabase(connection);
         }
 
+        /// <summary>
+        /// Establishes a new SQLite database connection using the provided file path.
+        /// </summary>
+        /// <param name="filePath">The file path for the SQLite database.</param>
+        /// <returns>An opened SQLiteConnection instance connected to the specified database file.</returns>
         private SQLiteConnection establishDatabaseConnection(string filePath)
         {
             string connectionString = $@"URI=file:{filePath}";
@@ -51,7 +60,12 @@ namespace Feedbacker_2._0.Database
             return connection;
         }
 
-        public void insertDataToDatabase(SQLiteConnection connection)
+        /// <summary>
+        /// Inserts data from the application's data model into the SQLite database.
+        /// Populates the courses, assignments, and responses tables with relevant information.
+        /// </summary>
+        /// <param name="connection">The SQLite connection to the database.</param>
+        public void insertAllDataToDatabase(SQLiteConnection connection)
         {
             using var command = new SQLiteCommand(connection);
 
@@ -85,7 +99,11 @@ namespace Feedbacker_2._0.Database
             }
         }
 
-        public void createNewEmptyDatabas(SQLiteConnection connection)
+        /// <summary>
+        /// Creates new tables in the SQLite database to store courses, assignments, and responses.
+        /// </summary>
+        /// <param name="connection">The SQLite connection to the database.</param>
+        public void createDatabaseTables(SQLiteConnection connection)
         {
             using var command = new SQLiteCommand(connection);
 
@@ -116,14 +134,20 @@ namespace Feedbacker_2._0.Database
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Loads data from an SQLite database file into the application's data model.
+        /// Reads information about courses, assignments, and responses from the database file.
+        /// </summary>
+        /// <param name="filePath">The file path of the SQLite database to load.</param>
         public void loadDatabaseFromFile(string filePath)
         {
+            //TODO: refactor this method into 3 parts.
 
             using SQLiteConnection connection = establishDatabaseConnection(filePath);
             string stm = "SELECT * FROM courses";
             using var cmd = new SQLiteCommand(stm, connection);
             SQLiteDataReader reader;
-            //making sure there are no errors. IE table cars does not exist yet.
+            //making sure there are no errors. IE table does not exist yet.
             try
             {
                 reader = cmd.ExecuteReader();
@@ -151,7 +175,7 @@ namespace Feedbacker_2._0.Database
                 string stm2 = $"SELECT * FROM assignments WHERE CourseId='{course.Id}'";
                 using var cmd2 = new SQLiteCommand(stm2, connection);
                 SQLiteDataReader rdr2;
-                //making sure there are no errors. IE table cars does not exist yet.
+                //making sure there are no errors. IE table does not exist yet.
                 try
                 {
                     rdr2 = cmd2.ExecuteReader();
@@ -182,7 +206,7 @@ namespace Feedbacker_2._0.Database
                     string stm3 = $"SELECT * FROM responses WHERE AssignmentId='{assignment.Id}'";
                     using var cmd3 = new SQLiteCommand(stm3, connection);
                     SQLiteDataReader rdr3;
-                    //making sure there are no errors. IE table cars does not exist yet.
+                    //making sure there are no errors. IE table does not exist yet.
                     try
                     {
                         rdr3 = cmd3.ExecuteReader();

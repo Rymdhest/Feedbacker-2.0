@@ -48,10 +48,10 @@ namespace Feedbacker_2._0
             saveAsToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
-            button1 = new Button();
+            newCourseButton = new Button();
             button2 = new Button();
             button3 = new Button();
-            button4 = new Button();
+            copyClipboardButton = new Button();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Responses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Assignments).BeginInit();
@@ -137,7 +137,7 @@ namespace Feedbacker_2._0
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(778, 24);
+            menuStrip1.Size = new Size(779, 24);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -193,15 +193,15 @@ namespace Feedbacker_2._0
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
-            // button1
+            // newCourseButton
             // 
-            button1.Location = new Point(194, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(101, 23);
-            button1.TabIndex = 7;
-            button1.Text = "New Course";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            newCourseButton.Location = new Point(194, 26);
+            newCourseButton.Name = "newCourseButton";
+            newCourseButton.Size = new Size(101, 23);
+            newCourseButton.TabIndex = 7;
+            newCourseButton.Text = "New Course";
+            newCourseButton.UseVisualStyleBackColor = true;
+            newCourseButton.Click += newCourseButton_Click;
             // 
             // button2
             // 
@@ -225,35 +225,35 @@ namespace Feedbacker_2._0
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
-            // button4
+            // copyClipboardButton
             // 
-            button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button4.Location = new Point(655, 485);
-            button4.Name = "button4";
-            button4.Size = new Size(113, 23);
-            button4.TabIndex = 10;
-            button4.Text = "Copy to Clipboard";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            copyClipboardButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            copyClipboardButton.Location = new Point(655, 485);
+            copyClipboardButton.Name = "copyClipboardButton";
+            copyClipboardButton.Size = new Size(113, 23);
+            copyClipboardButton.TabIndex = 10;
+            copyClipboardButton.Text = "Copy to Clipboard";
+            copyClipboardButton.UseVisualStyleBackColor = true;
+            copyClipboardButton.Click += copyClipboardButton_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(778, 521);
-            MinimumSize = new Size(795, 350);
-            Controls.Add(button4);
+            ClientSize = new Size(779, 521);
+            Controls.Add(copyClipboardButton);
             Controls.Add(button3);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(newCourseButton);
             Controls.Add(dataGridView_Assignments);
             Controls.Add(dataGridView_Responses);
             Controls.Add(textBox1);
             Controls.Add(comboBox_courses);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MinimumSize = new Size(795, 350);
             Name = "Form1";
-            Text = this.programName;
+            FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Responses).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Assignments).EndInit();
@@ -261,8 +261,6 @@ namespace Feedbacker_2._0
             menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-
-            FormClosing += Form1_FormClosing;
         }
 
 
@@ -284,9 +282,9 @@ namespace Feedbacker_2._0
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem newToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
-        private Button button1;
+        private Button newCourseButton;
         private Button button2;
         private Button button3;
-        private Button button4;
+        private Button copyClipboardButton;
     }
 }
