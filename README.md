@@ -32,7 +32,6 @@ Feedbacker 2.0 uses an SQLite database to store your project data. The `Database
 - **courses:** Stores information about courses, including name and description.
 - **assignments:** Contains details about assignments, including name and description.
 - **responses:** Holds feedback responses with title and text.
-[feedbacker](https://github.com/Rymdhest/Feedbacker-2.0/assets/52751206/0d6a9b64-fd5a-4abf-96f6-68c87d08e61e)
 
 <img src="https://github.com/Rymdhest/Feedbacker-2.0/assets/52751206/0d6a9b64-fd5a-4abf-96f6-68c87d08e61e" width="800"/>
 
