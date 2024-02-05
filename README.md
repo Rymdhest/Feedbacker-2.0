@@ -37,7 +37,7 @@ Feedbacker 2.0 uses an SQLite database to store your project data. The `Database
 <img src="https://github.com/Rymdhest/Feedbacker-2.0/assets/52751206/0d6a9b64-fd5a-4abf-96f6-68c87d08e61e" width="800"/>
 
 
-## Under the Hood!
+## Under the Hood
 
 
 The program employs a caching mechanism. When a database is loaded the entire database is queried and stored in a class hierarchy imitating the database structure. When saving, the database is first fully cleared and then the cached data is inserted back into the database. This means that the entire database is rewritten if the user only wanta to save one small change. This may seem like a naive approach but it works remarkably well and ensures that the database always contains synchronized information.
