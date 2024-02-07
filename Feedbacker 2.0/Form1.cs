@@ -361,13 +361,14 @@ namespace Feedbacker_2._0
             comboBox_courses.DataSource = null;
             comboBox_courses.Enabled = false;
 
-
             dataGridView_Assignments.DataSource = null;
             dataGridView_Assignments.Enabled = false;
             dataGridView_Responses.DataSource = null;
             dataGridView_Responses.Enabled = false;
             textBox1.Text = string.Empty;
             textBox1.Enabled = false;
+
+            lastSelectedCourseIndex = -1;
         }
 
         /// <summary>
@@ -498,9 +499,13 @@ namespace Feedbacker_2._0
 
                     Assignment draggedData = (Assignment)draggedRow.DataBoundItem;
 
-                    // Start the drag-and-drop operation
-                    DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
-                    DragDropEffects dropEffect = dataGridView_Assignments.DoDragDrop(draggedData, allowedEffects);
+                    if (draggedData != null)
+                    {
+                        // Start the drag-and-drop operation
+                        DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
+                        DragDropEffects dropEffect = dataGridView_Assignments.DoDragDrop(draggedData, allowedEffects);
+                    }
+
 
 
                 }
