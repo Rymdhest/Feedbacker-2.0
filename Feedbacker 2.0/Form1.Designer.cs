@@ -75,10 +75,10 @@ namespace Feedbacker_2._0
             textBox1.AcceptsTab = true;
             textBox1.AllowDrop = true;
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(446, 56);
+            textBox1.Location = new Point(582, 56);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(320, 423);
+            textBox1.Size = new Size(322, 527);
             textBox1.TabIndex = 2;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -89,12 +89,12 @@ namespace Feedbacker_2._0
             dataGridView_Responses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dataGridView_Responses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Responses.Columns.AddRange(new DataGridViewColumn[] { Column1 });
-            dataGridView_Responses.Location = new Point(227, 56);
+            dataGridView_Responses.Location = new Point(278, 56);
             dataGridView_Responses.MultiSelect = false;
             dataGridView_Responses.Name = "dataGridView_Responses";
             dataGridView_Responses.RowHeadersVisible = false;
             dataGridView_Responses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_Responses.Size = new Size(200, 453);
+            dataGridView_Responses.Size = new Size(260, 557);
             dataGridView_Responses.TabIndex = 4;
             dataGridView_Responses.CellValueChanged += DataGridView_Responses_CellValueChanged;
             dataGridView_Responses.SelectionChanged += DataGridView_Responses_SelectionChanged;
@@ -109,21 +109,33 @@ namespace Feedbacker_2._0
             // 
             // dataGridView_Assignments
             // 
+            dataGridView_Assignments.AllowDrop = true;
+            dataGridView_Assignments.AllowUserToOrderColumns = true;
             dataGridView_Assignments.AllowUserToResizeColumns = false;
             dataGridView_Assignments.AllowUserToResizeRows = false;
             dataGridView_Assignments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dataGridView_Assignments.BackgroundColor = Color.White;
             dataGridView_Assignments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Assignments.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1 });
+            dataGridView_Assignments.GridColor = Color.White;
             dataGridView_Assignments.Location = new Point(12, 56);
             dataGridView_Assignments.MultiSelect = false;
             dataGridView_Assignments.Name = "dataGridView_Assignments";
             dataGridView_Assignments.RowHeadersVisible = false;
+            dataGridView_Assignments.RowTemplate.Height = 40;
             dataGridView_Assignments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_Assignments.Size = new Size(200, 453);
+            dataGridView_Assignments.Size = new Size(260, 557);
             dataGridView_Assignments.TabIndex = 5;
             dataGridView_Assignments.CellValueChanged += DataGridView_Responses_CellValueChanged;
             dataGridView_Assignments.SelectionChanged += DataGridView_Assignments_SelectionChanged;
             dataGridView_Assignments.UserAddedRow += DataGridView_Assignments_SelectionChanged;
+
+            dataGridView_Assignments.DragDrop += dataGridView1_DragDrop;
+            dataGridView_Assignments.DragEnter += dataGridView1_DragEnter;
+            dataGridView_Assignments.DragOver += dataGridView1_DragOver;
+            dataGridView_Assignments.MouseDown += dataGridView1_MouseDown;
+            dataGridView_Assignments.MouseMove += dataGridView1_MouseMove;
+
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -137,7 +149,7 @@ namespace Feedbacker_2._0
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(779, 24);
+            menuStrip1.Size = new Size(945, 24);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -206,7 +218,7 @@ namespace Feedbacker_2._0
             // button2
             // 
             button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.Location = new Point(446, 486);
+            button2.Location = new Point(582, 591);
             button2.Name = "button2";
             button2.Size = new Size(94, 23);
             button2.TabIndex = 8;
@@ -217,7 +229,7 @@ namespace Feedbacker_2._0
             // button3
             // 
             button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button3.Location = new Point(546, 486);
+            button3.Location = new Point(682, 591);
             button3.Name = "button3";
             button3.Size = new Size(103, 23);
             button3.TabIndex = 9;
@@ -228,7 +240,7 @@ namespace Feedbacker_2._0
             // copyClipboardButton
             // 
             copyClipboardButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            copyClipboardButton.Location = new Point(655, 485);
+            copyClipboardButton.Location = new Point(791, 590);
             copyClipboardButton.Name = "copyClipboardButton";
             copyClipboardButton.Size = new Size(113, 23);
             copyClipboardButton.TabIndex = 10;
@@ -240,7 +252,8 @@ namespace Feedbacker_2._0
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(779, 521);
+            BackColor = Color.FromArgb(0, 0, 64);
+            ClientSize = new Size(945, 625);
             Controls.Add(copyClipboardButton);
             Controls.Add(button3);
             Controls.Add(button2);

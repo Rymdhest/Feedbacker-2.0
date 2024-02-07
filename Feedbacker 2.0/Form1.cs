@@ -1,18 +1,25 @@
 using Feedbacker_2._0.Database;
+using System.ComponentModel;
 using System.Text.Json;
+using System.Windows.Forms;
 
 namespace Feedbacker_2._0
 {
     public partial class Form1 : Form
     {
 
-        string savedInformationFilePath;
+        private string savedInformationFilePath;
         private int lastSelectedCourseIndex = -1; //used as part of a "hack" to allow editing course names in the combobox textfield
         private Boolean needSave = false;
         private SaveData saveData;
         private string programName = "Feedbacker 2.0";
         private DatabaseManager database;
 
+        private bool isDragging = false;
+        private int rowIndexFromMouseDown;
+        private DataGridViewRow draggedRow;
+        private Rectangle dragBoxFromMouseDown;
+        private Assignment draggedData;
         /// <summary>
         /// Represents the data that is saved and loaded to/from a file to store the application state.
         /// </summary>
@@ -428,7 +435,7 @@ namespace Feedbacker_2._0
         private void button2_Click(object sender, EventArgs e)
         {
             if (textBox1.Enabled == true)
-                textBox1.AppendText(Environment.NewLine + Environment.NewLine + "MVH Tomas Berggren");
+                textBox1.AppendText(Environment.NewLine + Environment.NewLine + saveData.signature);
         }
 
         /// <summary>
@@ -438,7 +445,7 @@ namespace Feedbacker_2._0
         private void button3_Click(object sender, EventArgs e)
         {
             if (textBox1.Enabled == true)
-                textBox1.AppendText("Add Grade Aim");
+                textBox1.AppendText(Environment.NewLine + Environment.NewLine + saveData.gradeAim);
         }
 
         /// <summary>
@@ -449,6 +456,103 @@ namespace Feedbacker_2._0
         {
             if (textBox1.Enabled == true)
                 Clipboard.SetText(textBox1.Text);
+        }
+            
+        /// <summary>
+        /// Handles the MouseDown event of the DataGridView for initiating a drag-and-drop operation.
+        /// </summary>
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                rowIndexFromMouseDown = dataGridView_Assignments.HitTest(e.X, e.Y).RowIndex;
+
+                if (rowIndexFromMouseDown != -1)
+                {
+                    Size dragSize = SystemInformation.DragSize;
+                    dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
+                        e.Y - (dragSize.Height / 2)), dragSize);
+
+
+                    draggedRow = dataGridView_Assignments.Rows[rowIndexFromMouseDown];
+                    // Store the data
+                    draggedData = (Assignment)draggedRow.DataBoundItem;
+                }
+                else
+                {
+                    dragBoxFromMouseDown = Rectangle.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the MouseMove event of the DataGridView for implementing drag-and-drop.
+        /// </summary>
+        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                if (dragBoxFromMouseDown != Rectangle.Empty && !dragBoxFromMouseDown.Contains(e.X, e.Y))
+                {
+                    isDragging = true;
+
+                    Assignment draggedData = (Assignment)draggedRow.DataBoundItem;
+
+                    // Start the drag-and-drop operation
+                    DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
+                    DragDropEffects dropEffect = dataGridView_Assignments.DoDragDrop(draggedData, allowedEffects);
+
+
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Handles the DragDrop event of the DataGridView for processing the drop operation.
+        /// </summary>
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
+            Point clientPoint = dataGridView_Assignments.PointToClient(new Point(e.X, e.Y));
+            int dropIndex = dataGridView_Assignments.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+            if (dropIndex == -1)
+            {
+                dropIndex = dataGridView_Assignments.Rows.Count - 1;
+            }
+
+            if (e.Effect == DragDropEffects.Move)
+            {
+                // Ensure that the data source is a BindingList
+                if (dataGridView_Assignments.DataSource is BindingList<Assignment> dataSource)
+                {
+                    // Remove the row from the old position in the BindingList
+                    dataSource.RemoveAt(rowIndexFromMouseDown);
+
+                    // Insert the row at the new position in the BindingList
+                    dataSource.Insert(dropIndex, draggedData);
+
+                }
+
+                dataGridView_Assignments.Rows[dropIndex].Selected = true;
+                isDragging = false;
+            }
+        }
+
+        /// <summary>
+        /// Handles the DragEnter event of the DataGridView for specifying the allowed drag-and-drop effects.
+        /// </summary>
+        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        /// <summary>
+        /// Handles the DragOver event of the DataGridView for specifying the allowed drag-and-drop effects.
+        /// </summary>
+        private void dataGridView1_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
         }
     }
 }
