@@ -445,6 +445,7 @@ namespace Feedbacker_2._0
         /// </summary>
         private void button3_Click(object sender, EventArgs e)
         {
+            dataGridView_Responses.Visible = false;
             if (textBox1.Enabled == true)
                 textBox1.AppendText(Environment.NewLine + Environment.NewLine + saveData.gradeAim);
         }
@@ -455,7 +456,7 @@ namespace Feedbacker_2._0
         /// </summary>
         private void copyClipboardButton_Click(object sender, EventArgs e)
         {
-            if (textBox1.Enabled == true)
+            if (textBox1.Enabled == true && textBox1.Text != string.Empty)
                 Clipboard.SetText(textBox1.Text);
         }
             
@@ -505,9 +506,6 @@ namespace Feedbacker_2._0
                         DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
                         DragDropEffects dropEffect = dataGridView_Assignments.DoDragDrop(draggedData, allowedEffects);
                     }
-
-
-
                 }
 
             }
