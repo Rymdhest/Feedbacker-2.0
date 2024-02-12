@@ -6,7 +6,7 @@ internal class Course : INotifyPropertyChanged
     private int id;
     private string name;
     private string description;
-    private BindingList<Assignment> assignments;
+    public BindingList<Assignment> assignments { get; set; }
 
     public int Id
     {

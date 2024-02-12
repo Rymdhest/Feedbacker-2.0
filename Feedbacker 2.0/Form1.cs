@@ -15,11 +15,9 @@ namespace Feedbacker_2._0
         private string programName = "Feedbacker 2.0";
         private DatabaseManager database;
 
-        private bool isDragging = false;
-        private int rowIndexFromMouseDown;
-        private DataGridViewRow draggedRow;
-        private Rectangle dragBoxFromMouseDown;
-        private Assignment draggedData;
+
+
+        private int rowHeight = 35;
         /// <summary>
         /// Represents the data that is saved and loaded to/from a file to store the application state.
         /// </summary>
@@ -29,10 +27,62 @@ namespace Feedbacker_2._0
             public string signature { get; set; }
             public string gradeAim { get; set; }
         }
+        private class Macro
+        {
+            public string title { get; set; }
+            public string text { get; set; }
+        }
+
 
         public Form1(DatabaseManager database)
         {
             InitializeComponent();
+
+
+            var assignmentHandler_Assignments = new DataGridViewDragDropHandler<Assignment>();
+            dataGridView_Assignments.MouseDown += (s, e) => assignmentHandler_Assignments.DataGridView_MouseDown(s, e);
+            dataGridView_Assignments.MouseMove += (s, e) => assignmentHandler_Assignments.DataGridView_MouseMove(s, e);
+            dataGridView_Assignments.DragDrop += (s, e) => assignmentHandler_Assignments.DataGridView_DragDrop(s, e);
+            dataGridView_Assignments.DragEnter += (s, e) => assignmentHandler_Assignments.DataGridView_DragEnter(s, e);
+            dataGridView_Assignments.DragOver += (s, e) => assignmentHandler_Assignments.DataGridView_DragOver(s, e);
+            dataGridView_Assignments.CellPainting += DataGridView_CellPainting;
+            dataGridView_Assignments.CellValueChanged += DataGridView_CellValueChanged;
+            dataGridView_Assignments.SelectionChanged += DataGridView_Assignments_SelectionChanged;
+            dataGridView_Assignments.UserAddedRow += DataGridView_Assignments_SelectionChanged;
+
+
+            var assignmentHandler_Courses = new DataGridViewDragDropHandler<Course>();
+            dataGridView_Courses.MouseDown += (s, e) => assignmentHandler_Courses.DataGridView_MouseDown(s, e);
+            dataGridView_Courses.MouseMove += (s, e) => assignmentHandler_Courses.DataGridView_MouseMove(s, e);
+            dataGridView_Courses.DragDrop += (s, e) => assignmentHandler_Courses.DataGridView_DragDrop(s, e);
+            dataGridView_Courses.DragEnter += (s, e) => assignmentHandler_Courses.DataGridView_DragEnter(s, e);
+            dataGridView_Courses.DragOver += (s, e) => assignmentHandler_Courses.DataGridView_DragOver(s, e);
+            dataGridView_Courses.CellPainting += DataGridView_CellPainting;
+            dataGridView_Courses.CellValueChanged += DataGridView_CellValueChanged;
+            dataGridView_Courses.SelectionChanged += DataGridView_Courses_SelectionChanged;
+            dataGridView_Courses.UserAddedRow += DataGridView_Courses_SelectionChanged;
+
+
+            var assignmentHandler_Responses = new DataGridViewDragDropHandler<Response>();
+            dataGridView_Responses.MouseDown += (s, e) => assignmentHandler_Responses.DataGridView_MouseDown(s, e);
+            dataGridView_Responses.MouseMove += (s, e) => assignmentHandler_Responses.DataGridView_MouseMove(s, e);
+            dataGridView_Responses.DragDrop += (s, e) => assignmentHandler_Responses.DataGridView_DragDrop(s, e);
+            dataGridView_Responses.DragEnter += (s, e) => assignmentHandler_Responses.DataGridView_DragEnter(s, e);
+            dataGridView_Responses.DragOver += (s, e) => assignmentHandler_Responses.DataGridView_DragOver(s, e);
+            dataGridView_Responses.CellPainting += DataGridView_CellPainting;
+            dataGridView_Responses.CellValueChanged += DataGridView_CellValueChanged;
+            dataGridView_Responses.SelectionChanged += DataGridView_Responses_SelectionChanged;
+            dataGridView_Responses.UserAddedRow += DataGridView_Responses_SelectionChanged;
+
+            var assignmentHandler_Macros = new DataGridViewDragDropHandler<Macro>();
+            dataGridView_Macros.MouseDown += (s, e) => assignmentHandler_Macros.DataGridView_MouseDown(s, e);
+            dataGridView_Macros.MouseMove += (s, e) => assignmentHandler_Macros.DataGridView_MouseMove(s, e);
+            dataGridView_Macros.DragDrop += (s, e) => assignmentHandler_Macros.DataGridView_DragDrop(s, e);
+            dataGridView_Macros.DragEnter += (s, e) => assignmentHandler_Macros.DataGridView_DragEnter(s, e);
+            dataGridView_Macros.DragOver += (s, e) => assignmentHandler_Macros.DataGridView_DragOver(s, e);
+            dataGridView_Macros.CellPainting += DataGridView_CellPainting;
+            dataGridView_Macros.CellValueChanged += DataGridView_CellValueChanged;
+
             this.database = database;
 
 
@@ -54,9 +104,10 @@ namespace Feedbacker_2._0
             }
             else
             {
-                createNewProject();
+                //createNewProject();
             }
             needSave = false;
+
         }
 
         /// <summary>
@@ -98,36 +149,35 @@ namespace Feedbacker_2._0
         }
 
         /// <summary>
-        /// Event handler for cell value changes in the DataGridView_Responses.
+        /// Event handler for cell value changes in a DataGridView.
         /// Marks the need for saving changes.
         /// </summary>
-        private void DataGridView_Responses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             needSave = true;
         }
 
         /// <summary>
-        /// Loads the database from a specified filepath and populates the UI with the retrieved data.
+        /// Loads the database from a specified filepath and populates the GUI with the retrieved data.
         /// </summary>
         /// <param name="filePath">The path to the database file to load.</param>
         private void loadDatabaseFromFile(string filePath)
         {
             saveData.lastUsedFilePath = filePath;
             saveStoredInformation();
-            comboBox_courses.DataSource = database.Courses;
-            comboBox_courses.DisplayMember = "Name";
+            dataGridView_Courses.AutoGenerateColumns = false;
+
+
+
+            dataGridView_Courses.DataSource = database.Courses;
+            //dataGridView_Courses.ColumnHeadersDefaultCellStyle.BackColor = Color.Red;
+
+
+            dataGridView_Courses.Refresh();
+
 
             database.loadDatabaseFromFile(filePath);
 
-
-            comboBox_courses.SelectedIndex = -1;
-            // default select the first course if there is one
-            if (comboBox_courses.Items.Count > 0)
-            {
-                comboBox_courses.SelectedIndex = 0;
-                comboBox_courses.Enabled = true;
-                lastSelectedCourseIndex = comboBox_courses.SelectedIndex;
-            }
 
             needSave = false;
         }
@@ -143,40 +193,6 @@ namespace Feedbacker_2._0
             saveData.lastUsedFilePath = filePath;
         }
 
-        /// <summary>
-        /// Event handler for the SelectionChangeCommitted event of the courses ComboBox.
-        /// Updates the lastSelectedCourseIndex when the user selects a different course.
-        /// This is part of a hack to allow for changing course names in the combobox.
-        /// </summary>
-        private void ComboBox_courses_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            lastSelectedCourseIndex = comboBox_courses.SelectedIndex;
-
-        }
-
-        /// <summary>
-        /// Event handler for the SelectedIndexChanged event of the courses ComboBox.
-        /// Populates the assignments DataGridView if a valid course was selected.
-        /// Otherwise depopulates the responses.
-        /// </summary>
-        private void ComboBox_courses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-            dataGridView_Assignments.AutoGenerateColumns = false;
-            if ((Course)comboBox_courses.SelectedItem != null)
-            {
-                dataGridView_Assignments.DataSource = ((Course)comboBox_courses.SelectedItem).Assignments;
-                dataGridView_Assignments.Enabled = Enabled;
-            }
-            else
-            {
-                dataGridView_Responses.Enabled = false;
-                dataGridView_Responses.DataSource = null;
-                textBox1.Enabled = false;
-                textBox1.Text = string.Empty;
-            }
-        }
 
         /// <summary>
         /// Event handler for the SelectionChanged event of the responses DataGridView.
@@ -189,18 +205,18 @@ namespace Feedbacker_2._0
             {
                 if (dataGridView_Responses.SelectedRows[0].DataBoundItem != null)
                 {
-                    textBox1.Enabled = true;
+                    textBox_Message.Enabled = true;
                     string text = (((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message);
-                    textBox1.Text = text;
+                    textBox_Message.Text = text;
                 }
                 else
                 {
-                    textBox1.Text = string.Empty;
+                    textBox_Message.Text = string.Empty;
                 }
             }
             else
             {
-                textBox1.Enabled = false;
+                textBox_Message.Enabled = false;
             }
         }
 
@@ -222,14 +238,39 @@ namespace Feedbacker_2._0
                 {
                     dataGridView_Responses.DataSource = null;
                     dataGridView_Responses.Enabled = false;
-                    textBox1.Text = string.Empty;
+                    textBox_Message.Text = string.Empty;
                 }
             }
             else
             {
                 dataGridView_Responses.DataSource = null;
                 dataGridView_Responses.Enabled = false;
-                textBox1.Text = string.Empty;
+                textBox_Message.Text = string.Empty;
+            }
+        }
+
+        private void DataGridView_Courses_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView_Courses.SelectedRows.Count >= 1)
+            {
+                if (dataGridView_Courses.SelectedRows[0].DataBoundItem != null)
+                {
+                    dataGridView_Assignments.AutoGenerateColumns = false;
+                    dataGridView_Assignments.DataSource = ((Course)dataGridView_Courses.SelectedRows[0].DataBoundItem).assignments;
+                    dataGridView_Assignments.Enabled = true;
+                }
+                else
+                {
+                    dataGridView_Assignments.DataSource = null;
+                    dataGridView_Assignments.Enabled = false;
+                    textBox_Message.Text = string.Empty;
+                }
+            }
+            else
+            {
+                dataGridView_Assignments.DataSource = null;
+                dataGridView_Assignments.Enabled = false;
+                textBox_Message.Text = string.Empty;
             }
         }
 
@@ -242,7 +283,7 @@ namespace Feedbacker_2._0
             {
                 if ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem != null)
                 {
-                    ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message = textBox1.Text;
+                    ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message = textBox_Message.Text;
                     needSave = true;
                 }
             }
@@ -259,7 +300,8 @@ namespace Feedbacker_2._0
             if (File.Exists(saveData.lastUsedFilePath))
             {
                 saveDatabaseToFile(saveData.lastUsedFilePath);
-            } else
+            }
+            else
             {
                 saveAs();
             }
@@ -325,8 +367,6 @@ namespace Feedbacker_2._0
         {
             tryAskToSave();
             clear();
-            comboBox_courses.DataSource = database.Courses;
-            comboBox_courses.DisplayMember = "Name";
         }
 
         /// <summary>
@@ -338,19 +378,6 @@ namespace Feedbacker_2._0
             createNewProject();
         }
 
-        /// <summary>
-        /// Event handler for the TextChanged event of the courses ComboBox.
-        /// Updates the name of the course when the user edits the name in the combobox.
-        /// </summary>
-        private void ComboBox_courses_TextChanged(object sender, EventArgs e)
-        {
-            if (lastSelectedCourseIndex >= 0)
-            {
-                //need to use lastSelectedCourseIndex because changing the combobox text puts the selected index to -1.
-                ((Course)comboBox_courses.Items[lastSelectedCourseIndex]).Name = comboBox_courses.Text;
-                needSave = true;
-            }
-        }
 
         /// <summary>
         /// Clears existing data in the application, resetting it to a clean state.
@@ -358,15 +385,17 @@ namespace Feedbacker_2._0
         private void clear()
         {
             database.Courses.Clear();
-            comboBox_courses.DataSource = null;
-            comboBox_courses.Enabled = false;
+            dataGridView_Courses.DataSource = null;
+            dataGridView_Courses.DataSource = database.Courses;
 
             dataGridView_Assignments.DataSource = null;
             dataGridView_Assignments.Enabled = false;
             dataGridView_Responses.DataSource = null;
             dataGridView_Responses.Enabled = false;
-            textBox1.Text = string.Empty;
-            textBox1.Enabled = false;
+            textBox_Message.Text = string.Empty;
+            textBox_Message.Enabled = false;
+
+            label_courses_small.Text = "Courses";
 
             lastSelectedCourseIndex = -1;
         }
@@ -407,36 +436,13 @@ namespace Feedbacker_2._0
         }
 
         /// <summary>
-        /// Event handler for the Click event of the "Add Course" button.
-        /// Adds a new course to the application and selects it.
-        /// </summary>
-        private void newCourseButton_Click(object sender, EventArgs e)
-        {
-            Course course = new Course();
-            comboBox_courses.Enabled = true;
-            database.Courses.Add(course);
-
-            lastSelectedCourseIndex = -1;
-            comboBox_courses.SelectedItem = course;
-            lastSelectedCourseIndex = comboBox_courses.Items.IndexOf(course);
-            comboBox_courses.Focus();
-            comboBox_courses.Select(0, comboBox_courses.Text.Length);
-
-            dataGridView_Assignments.AutoGenerateColumns = false;
-            dataGridView_Assignments.DataSource = ((Course)comboBox_courses.SelectedItem).Assignments;
-            dataGridView_Assignments.Enabled = Enabled;
-
-            needSave = true;
-        }
-
-        /// <summary>
         /// Event handler for the Click event of the "Add Signature" button.
         /// Appends a predefined signature to the feedback message text box.
         /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Enabled == true)
-                textBox1.AppendText(Environment.NewLine + Environment.NewLine + saveData.signature);
+            if (textBox_Message.Enabled == true)
+                textBox_Message.AppendText(Environment.NewLine + Environment.NewLine + saveData.signature);
         }
 
         /// <summary>
@@ -446,8 +452,8 @@ namespace Feedbacker_2._0
         private void button3_Click(object sender, EventArgs e)
         {
             dataGridView_Responses.Visible = false;
-            if (textBox1.Enabled == true)
-                textBox1.AppendText(Environment.NewLine + Environment.NewLine + saveData.gradeAim);
+            if (textBox_Message.Enabled == true)
+                textBox_Message.AppendText(Environment.NewLine + Environment.NewLine + saveData.gradeAim);
         }
 
         /// <summary>
@@ -456,106 +462,57 @@ namespace Feedbacker_2._0
         /// </summary>
         private void copyClipboardButton_Click(object sender, EventArgs e)
         {
-            if (textBox1.Enabled == true && textBox1.Text != string.Empty)
-                Clipboard.SetText(textBox1.Text);
+            if (textBox_Message.Enabled == true && textBox_Message.Text != string.Empty)
+                Clipboard.SetText(textBox_Message.Text);
         }
-            
-        /// <summary>
-        /// Handles the MouseDown event of the DataGridView for initiating a drag-and-drop operation.
-        /// </summary>
-        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+
+        private void label3_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            label3.Visible = false;
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+            string text = "Courses";
+            if (dataGridView_Courses.SelectedRows.Count > 0)
             {
-                rowIndexFromMouseDown = dataGridView_Assignments.HitTest(e.X, e.Y).RowIndex;
-
-                if (rowIndexFromMouseDown != -1)
+                if (dataGridView_Courses.SelectedRows[0].DataBoundItem != null)
                 {
-                    Size dragSize = SystemInformation.DragSize;
-                    dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2),
-                        e.Y - (dragSize.Height / 2)), dragSize);
-
-
-                    draggedRow = dataGridView_Assignments.Rows[rowIndexFromMouseDown];
-                    // Store the data
-                    draggedData = (Assignment)draggedRow.DataBoundItem;
-                }
-                else
-                {
-                    dragBoxFromMouseDown = Rectangle.Empty;
+                    text = ((Course)dataGridView_Courses.SelectedRows[0].DataBoundItem).Name;
                 }
             }
+            label_courses_small.Text = text;
+            panel_courses.Visible = false;
+            panel_courses_small.Visible = true;
+            recalculateMessageLayoutSize();
         }
 
-        /// <summary>
-        /// Handles the MouseMove event of the DataGridView for implementing drag-and-drop.
-        /// </summary>
-        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        private void label_courses_small_Click(object sender, EventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                if (dragBoxFromMouseDown != Rectangle.Empty && !dragBoxFromMouseDown.Contains(e.X, e.Y))
-                {
-                    isDragging = true;
-
-                    Assignment draggedData = (Assignment)draggedRow.DataBoundItem;
-
-                    if (draggedData != null)
-                    {
-                        // Start the drag-and-drop operation
-                        DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
-                        DragDropEffects dropEffect = dataGridView_Assignments.DoDragDrop(draggedData, allowedEffects);
-                    }
-                }
-
-            }
+            panel_courses.Visible = true;
+            panel_courses_small.Visible = false;
+            recalculateMessageLayoutSize();
         }
 
-        /// <summary>
-        /// Handles the DragDrop event of the DataGridView for processing the drop operation.
-        /// </summary>
-        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        private void label4_Click(object sender, EventArgs e)
         {
-            Point clientPoint = dataGridView_Assignments.PointToClient(new Point(e.X, e.Y));
-            int dropIndex = dataGridView_Assignments.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
-
-            if (dropIndex == -1)
-            {
-                dropIndex = dataGridView_Assignments.Rows.Count - 1;
-            }
-
-            if (e.Effect == DragDropEffects.Move)
-            {
-                // Ensure that the data source is a BindingList
-                if (dataGridView_Assignments.DataSource is BindingList<Assignment> dataSource)
-                {
-                    // Remove the row from the old position in the BindingList
-                    dataSource.RemoveAt(rowIndexFromMouseDown);
-
-                    // Insert the row at the new position in the BindingList
-                    dataSource.Insert(dropIndex, draggedData);
-
-                }
-
-                dataGridView_Assignments.Rows[dropIndex].Selected = true;
-                isDragging = false;
-            }
+            panel_macros.Visible = false;
+            panel_macros_small.Visible = true;
+            recalculateMessageLayoutSize();
         }
 
-        /// <summary>
-        /// Handles the DragEnter event of the DataGridView for specifying the allowed drag-and-drop effects.
-        /// </summary>
-        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        private void label_macros_small_Click(object sender, EventArgs e)
         {
-            e.Effect = DragDropEffects.Move;
-        }
-
-        /// <summary>
-        /// Handles the DragOver event of the DataGridView for specifying the allowed drag-and-drop effects.
-        /// </summary>
-        private void dataGridView1_DragOver(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Move;
+            panel_macros.Visible = true;
+            panel_macros_small.Visible = false;
+            recalculateMessageLayoutSize();
         }
     }
+
 }
