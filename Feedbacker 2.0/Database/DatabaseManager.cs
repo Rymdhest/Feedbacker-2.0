@@ -7,14 +7,14 @@ namespace Feedbacker_2._0.Database
     public class DatabaseManager
     {
 
-        private BindingList<Course> courses;
+        private SortedBindingList<Course> courses = new SortedBindingList<Course>(TypeDescriptor.GetProperties(typeof(Course))["Name"], ListSortDirection.Ascending);
 
         public DatabaseManager()
         {
-            courses = new BindingList<Course>();
+
         }
 
-        internal BindingList<Course> Courses { get => courses; set => courses = value; }
+        internal SortedBindingList<Course> Courses { get => courses; set => courses = value; }
 
         /// <summary>
         /// Drops all tables from the database by executing SQL commands to remove courses, assignments, and responses tables.

@@ -1,5 +1,6 @@
 using Feedbacker_2._0.Database;
 using System.ComponentModel;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -17,7 +18,10 @@ namespace Feedbacker_2._0
         private string programName = "Feedbacker 2.0";
         private DatabaseManager database;
         private BindingList<Macro> macros = new BindingList<Macro> ();
+
         private object textBoxBoundItem = null;
+        private ContextMenuStrip contextMenuStrip_courses;
+        private ToolStripMenuItem toggleOptionItem;
 
         private int rowHeight = 35;
         /// <summary>
@@ -26,6 +30,7 @@ namespace Feedbacker_2._0
         private class SaveData
         {
             public string lastUsedFilePath { get; set; }
+            public bool sortCourses{ get; set; }
         }
         private class Macro
         {
@@ -63,8 +68,8 @@ namespace Feedbacker_2._0
             dataGridView_Courses.CellPainting += DataGridView_CellPainting;
             dataGridView_Courses.CellValueChanged += DataGridView_CellValueChanged;
             dataGridView_Courses.SelectionChanged += DataGridView_Courses_SelectionChanged;
-            dataGridView_Courses.UserAddedRow += DataGridView_Courses_SelectionChanged;
-
+            dataGridView_Courses.UserAddedRow += DataGridView_Courses_UserAddedRow;
+            dataGridView_Courses.CellEndEdit += DataGridView_Courses_CellEndEdit;
 
             var assignmentHandler_Responses = new DataGridViewDragDropHandler<Response>();
             dataGridView_Responses.MouseDown += (s, e) => assignmentHandler_Responses.DataGridView_MouseDown(s, e);
@@ -86,6 +91,17 @@ namespace Feedbacker_2._0
             dataGridView_Macros.CellPainting += DataGridView_CellPainting;
             dataGridView_Macros.CellValueChanged += DataGridView_CellValueChanged;
 
+            contextMenuStrip_courses = new ContextMenuStrip();
+            label_courses.ContextMenuStrip = contextMenuStrip_courses; // Assign the context menu to the label
+
+            // Create a ToolStripMenuItem with a CheckBox
+            toggleOptionItem = new ToolStripMenuItem("Auto Sort");
+            toggleOptionItem.CheckOnClick = true;
+            toggleOptionItem.CheckedChanged += ToggleOptionItem_CheckedChanged;
+
+            // Add the ToolStripMenuItem to the ContextMenuStrip
+            contextMenuStrip_courses.Items.Add(toggleOptionItem);
+
             this.database = database;
 
 
@@ -99,6 +115,8 @@ namespace Feedbacker_2._0
 
 
             loadSavedInformation();
+            database.Courses.setSorting(saveData.sortCourses);
+            dataGridView_Courses.AllowDrop = !saveData.sortCourses;
 
             if (File.Exists(saveData.lastUsedFilePath))
             {
@@ -106,12 +124,32 @@ namespace Feedbacker_2._0
             }
             else
             {
-                //createNewProject();
+                createNewProject();
             }
             needSave = false;
 
         }
 
+        private void DataGridView_Courses_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+        {
+            database.Courses.resort();
+        }
+
+        private void DataGridView_Courses_UserAddedRow(object? sender, DataGridViewRowEventArgs e)
+        {
+            DataGridView_Courses_SelectionChanged(sender, e);
+        }
+
+        private void ToggleOptionItem_CheckedChanged(object sender, EventArgs e)
+        {
+            // Handle the checkbox state change
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            bool isChecked = menuItem.Checked;
+
+
+            dataGridView_Courses.AllowDrop = !isChecked;
+            database.Courses.setSorting(isChecked);
+        }
 
         /// <summary>
         /// Saves the stored information to a JSON file.
@@ -479,16 +517,15 @@ namespace Feedbacker_2._0
                 Clipboard.SetText(textBox_Message.Text);
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-            label3.Visible = false;
-        }
 
 
         private void label3_Click_1(object sender, EventArgs e)
         {
-
-            string text = "Courses";
+            if (((MouseEventArgs)e).Button != MouseButtons.Left)
+            {
+                return;
+            }
+                string text = "Courses";
             if (dataGridView_Courses.SelectedRows.Count > 0)
             {
                 if (dataGridView_Courses.SelectedRows[0].DataBoundItem != null)
@@ -511,6 +548,10 @@ namespace Feedbacker_2._0
 
         private void label4_Click(object sender, EventArgs e)
         {
+            if (((MouseEventArgs)e).Button != MouseButtons.Left)
+            {
+                return;
+            }
             panel_macros.Visible = false;
             panel_macros_small.Visible = true;
             recalculateMessageLayoutSize();

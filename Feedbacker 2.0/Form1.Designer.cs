@@ -42,15 +42,15 @@ namespace Feedbacker_2._0
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
             textBox_Message = new TextBox();
             bindingSource1 = new BindingSource(components);
             dataGridView_Assignments = new DataGridView();
@@ -68,14 +68,17 @@ namespace Feedbacker_2._0
             dataGridView_Responses = new DataGridView();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridView_Macros = new DataGridView();
+            Play = new DataGridViewImageColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            editColumn = new DataGridViewImageColumn();
             label_Message = new Label();
-            label1 = new Label();
-            label2 = new Label();
-            label4 = new Label();
+            label_responses = new Label();
+            label_assignments = new Label();
+            label_macros = new Label();
             dataGridView_Courses = new DataGridView();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             panel_courses = new Panel();
-            label3 = new Label();
+            label_courses = new Label();
             panel_assignments = new Panel();
             panel_responses = new Panel();
             panel_message = new Panel();
@@ -85,9 +88,6 @@ namespace Feedbacker_2._0
             label_courses_small = new Label();
             panel_macros_small = new Panel();
             label_macros_small = new Label();
-            Column1 = new DataGridViewImageColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            editColumn = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Assignments).BeginInit();
             menuStrip1.SuspendLayout();
@@ -131,25 +131,25 @@ namespace Feedbacker_2._0
             dataGridView_Assignments.BorderStyle = BorderStyle.None;
             dataGridView_Assignments.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Assignments.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(23, 87, 146);
-            dataGridViewCellStyle1.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(105, 164, 219);
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView_Assignments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(23, 87, 146);
+            dataGridViewCellStyle9.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(105, 164, 219);
+            dataGridViewCellStyle9.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridView_Assignments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridView_Assignments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Assignments.ColumnHeadersVisible = false;
             dataGridView_Assignments.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView_Assignments.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dataGridView_Assignments.DefaultCellStyle = dataGridViewCellStyle10;
             dataGridView_Assignments.EnableHeadersVisualStyles = false;
             dataGridView_Assignments.GridColor = Color.White;
             dataGridView_Assignments.Location = new Point(0, 34);
@@ -255,25 +255,25 @@ namespace Feedbacker_2._0
             dataGridView_Responses.BorderStyle = BorderStyle.None;
             dataGridView_Responses.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Responses.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(23, 87, 146);
-            dataGridViewCellStyle3.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(105, 164, 219);
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView_Responses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(23, 87, 146);
+            dataGridViewCellStyle11.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle11.ForeColor = Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(105, 164, 219);
+            dataGridViewCellStyle11.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dataGridView_Responses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dataGridView_Responses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Responses.ColumnHeadersVisible = false;
             dataGridView_Responses.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn4 });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridView_Responses.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = SystemColors.Window;
+            dataGridViewCellStyle12.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle12.ForeColor = Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
+            dataGridView_Responses.DefaultCellStyle = dataGridViewCellStyle12;
             dataGridView_Responses.EnableHeadersVisualStyles = false;
             dataGridView_Responses.GridColor = Color.White;
             dataGridView_Responses.Location = new Point(0, 34);
@@ -303,25 +303,25 @@ namespace Feedbacker_2._0
             dataGridView_Macros.BorderStyle = BorderStyle.None;
             dataGridView_Macros.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Macros.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(23, 87, 146);
-            dataGridViewCellStyle5.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(105, 164, 219);
-            dataGridViewCellStyle5.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridView_Macros.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = Color.FromArgb(23, 87, 146);
+            dataGridViewCellStyle13.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle13.ForeColor = Color.White;
+            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(105, 164, 219);
+            dataGridViewCellStyle13.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
+            dataGridView_Macros.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             dataGridView_Macros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Macros.ColumnHeadersVisible = false;
-            dataGridView_Macros.Columns.AddRange(new DataGridViewColumn[] { Column1, dataGridViewTextBoxColumn2, editColumn });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridView_Macros.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridView_Macros.Columns.AddRange(new DataGridViewColumn[] { Play, dataGridViewTextBoxColumn2, editColumn });
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = SystemColors.Window;
+            dataGridViewCellStyle14.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle14.ForeColor = Color.Black;
+            dataGridViewCellStyle14.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
+            dataGridView_Macros.DefaultCellStyle = dataGridViewCellStyle14;
             dataGridView_Macros.EnableHeadersVisualStyles = false;
             dataGridView_Macros.GridColor = Color.White;
             dataGridView_Macros.Location = new Point(0, 34);
@@ -330,13 +330,36 @@ namespace Feedbacker_2._0
             dataGridView_Macros.Name = "dataGridView_Macros";
             dataGridView_Macros.RowHeadersVisible = false;
             dataGridView_Macros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_Macros.Size = new Size(260, 740);
+            dataGridView_Macros.Size = new Size(260, 0);
             dataGridView_Macros.TabIndex = 14;
             dataGridView_Macros.CellClick += DataGridView_Macros_CellClick;
-            dataGridView_Macros.RowsAdded += DataGridView_Macros_RowsAdded;
-            dataGridView_Macros.UserAddedRow += DataGridView_Macros_UserAddedRow;
             dataGridView_Macros.CellEndEdit += DataGridView_Macros_CellEndEdit;
+            dataGridView_Macros.RowsAdded += DataGridView_Macros_RowsAdded;
             dataGridView_Macros.SelectionChanged += DataGridView_Macros_SelectionChanged;
+            dataGridView_Macros.UserAddedRow += DataGridView_Macros_UserAddedRow;
+            // 
+            // Play
+            // 
+            Play.HeaderText = "Column1";
+            Play.Image = Properties.Resources.icons8_play_50;
+            Play.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Play.Name = "Play";
+            Play.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn2.DataPropertyName = "title";
+            dataGridViewTextBoxColumn2.HeaderText = "Macros";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // editColumn
+            // 
+            editColumn.HeaderText = "Column2";
+            editColumn.Image = Properties.Resources.icons8_edit_50__1_;
+            editColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            editColumn.Name = "editColumn";
+            editColumn.Width = 50;
             // 
             // label_Message
             // 
@@ -352,52 +375,51 @@ namespace Feedbacker_2._0
             label_Message.Text = "Message";
             label_Message.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // label_responses
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label1.BackColor = Color.FromArgb(23, 87, 146);
-            label1.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(260, 34);
-            label1.TabIndex = 16;
-            label1.Text = "Responses";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label_responses.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label_responses.BackColor = Color.FromArgb(23, 87, 146);
+            label_responses.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            label_responses.ForeColor = Color.White;
+            label_responses.Location = new Point(0, 0);
+            label_responses.Margin = new Padding(0);
+            label_responses.Name = "label_responses";
+            label_responses.Size = new Size(260, 34);
+            label_responses.TabIndex = 16;
+            label_responses.Text = "Responses";
+            label_responses.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // label_assignments
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label2.BackColor = Color.FromArgb(23, 87, 146);
-            label2.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Size = new Size(260, 34);
-            label2.TabIndex = 17;
-            label2.Text = "Assignments";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            label_assignments.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label_assignments.BackColor = Color.FromArgb(23, 87, 146);
+            label_assignments.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            label_assignments.ForeColor = Color.White;
+            label_assignments.Location = new Point(0, 0);
+            label_assignments.Margin = new Padding(0);
+            label_assignments.Name = "label_assignments";
+            label_assignments.Size = new Size(260, 34);
+            label_assignments.TabIndex = 17;
+            label_assignments.Text = "Assignments";
+            label_assignments.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // label_macros
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label4.BackColor = Color.FromArgb(23, 87, 146);
-            label4.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(0, 0);
-            label4.Margin = new Padding(0);
-            label4.Name = "label4";
-            label4.Size = new Size(260, 34);
-            label4.TabIndex = 19;
-            label4.Text = "Macros";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            label4.Click += label4_Click;
+            label_macros.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label_macros.BackColor = Color.FromArgb(23, 87, 146);
+            label_macros.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            label_macros.ForeColor = Color.White;
+            label_macros.Location = new Point(0, 0);
+            label_macros.Margin = new Padding(0);
+            label_macros.Name = "label_macros";
+            label_macros.Size = new Size(260, 34);
+            label_macros.TabIndex = 19;
+            label_macros.Text = "Macros";
+            label_macros.TextAlign = ContentAlignment.MiddleCenter;
+            label_macros.Click += label4_Click;
             // 
             // dataGridView_Courses
             // 
-            dataGridView_Courses.AllowDrop = true;
             dataGridView_Courses.AllowUserToOrderColumns = true;
             dataGridView_Courses.AllowUserToResizeColumns = false;
             dataGridView_Courses.AllowUserToResizeRows = false;
@@ -406,25 +428,25 @@ namespace Feedbacker_2._0
             dataGridView_Courses.BorderStyle = BorderStyle.None;
             dataGridView_Courses.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Courses.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(23, 87, 146);
-            dataGridViewCellStyle7.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(105, 164, 219);
-            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridView_Courses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb(23, 87, 146);
+            dataGridViewCellStyle15.Font = new Font("Tahoma", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle15.ForeColor = Color.White;
+            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb(105, 164, 219);
+            dataGridViewCellStyle15.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
+            dataGridView_Courses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             dataGridView_Courses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Courses.ColumnHeadersVisible = false;
             dataGridView_Courses.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3 });
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dataGridView_Courses.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = SystemColors.Window;
+            dataGridViewCellStyle16.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle16.ForeColor = Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.False;
+            dataGridView_Courses.DefaultCellStyle = dataGridViewCellStyle16;
             dataGridView_Courses.EnableHeadersVisualStyles = false;
             dataGridView_Courses.GridColor = Color.White;
             dataGridView_Courses.Location = new Point(0, 34);
@@ -446,7 +468,7 @@ namespace Feedbacker_2._0
             // panel_courses
             // 
             panel_courses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel_courses.Controls.Add(label3);
+            panel_courses.Controls.Add(label_courses);
             panel_courses.Controls.Add(dataGridView_Courses);
             panel_courses.Location = new Point(37, 0);
             panel_courses.Margin = new Padding(0, 0, 3, 0);
@@ -454,25 +476,25 @@ namespace Feedbacker_2._0
             panel_courses.Size = new Size(260, 774);
             panel_courses.TabIndex = 20;
             // 
-            // label3
+            // label_courses
             // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label3.BackColor = Color.FromArgb(23, 87, 146);
-            label3.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(0, 0);
-            label3.Margin = new Padding(0);
-            label3.Name = "label3";
-            label3.Size = new Size(260, 34);
-            label3.TabIndex = 21;
-            label3.Text = "Courses";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            label3.Click += label3_Click_1;
+            label_courses.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label_courses.BackColor = Color.FromArgb(23, 87, 146);
+            label_courses.Font = new Font("Segoe UI", 21F, FontStyle.Regular, GraphicsUnit.Point);
+            label_courses.ForeColor = Color.White;
+            label_courses.Location = new Point(0, 0);
+            label_courses.Margin = new Padding(0);
+            label_courses.Name = "label_courses";
+            label_courses.Size = new Size(260, 34);
+            label_courses.TabIndex = 21;
+            label_courses.Text = "Courses";
+            label_courses.TextAlign = ContentAlignment.MiddleCenter;
+            label_courses.Click += label3_Click_1;
             // 
             // panel_assignments
             // 
             panel_assignments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel_assignments.Controls.Add(label2);
+            panel_assignments.Controls.Add(label_assignments);
             panel_assignments.Controls.Add(dataGridView_Assignments);
             panel_assignments.Location = new Point(303, 0);
             panel_assignments.Margin = new Padding(3, 0, 3, 0);
@@ -483,7 +505,7 @@ namespace Feedbacker_2._0
             // panel_responses
             // 
             panel_responses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel_responses.Controls.Add(label1);
+            panel_responses.Controls.Add(label_responses);
             panel_responses.Controls.Add(dataGridView_Responses);
             panel_responses.Location = new Point(569, 0);
             panel_responses.Margin = new Padding(3, 0, 3, 0);
@@ -505,12 +527,12 @@ namespace Feedbacker_2._0
             // panel_macros
             // 
             panel_macros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel_macros.Controls.Add(label4);
+            panel_macros.Controls.Add(label_macros);
             panel_macros.Controls.Add(dataGridView_Macros);
             panel_macros.Location = new Point(3, 774);
             panel_macros.Margin = new Padding(3, 0, 0, 0);
             panel_macros.Name = "panel_macros";
-            panel_macros.Size = new Size(260, 774);
+            panel_macros.Size = new Size(260, 0);
             panel_macros.TabIndex = 24;
             // 
             // flowLayoutPanel1
@@ -532,6 +554,7 @@ namespace Feedbacker_2._0
             // 
             // panel_courses_small
             // 
+            panel_courses_small.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel_courses_small.Controls.Add(label_courses_small);
             panel_courses_small.Location = new Point(0, 0);
             panel_courses_small.Margin = new Padding(0, 0, 3, 0);
@@ -557,11 +580,12 @@ namespace Feedbacker_2._0
             // 
             // panel_macros_small
             // 
+            panel_macros_small.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panel_macros_small.Controls.Add(label_macros_small);
             panel_macros_small.Location = new Point(266, 774);
             panel_macros_small.Margin = new Padding(3, 0, 0, 0);
             panel_macros_small.Name = "panel_macros_small";
-            panel_macros_small.Size = new Size(34, 774);
+            panel_macros_small.Size = new Size(34, 0);
             panel_macros_small.TabIndex = 25;
             panel_macros_small.Visible = false;
             // 
@@ -574,35 +598,11 @@ namespace Feedbacker_2._0
             label_macros_small.Location = new Point(0, 0);
             label_macros_small.Margin = new Padding(0);
             label_macros_small.Name = "label_macros_small";
-            label_macros_small.Size = new Size(34, 774);
+            label_macros_small.Size = new Size(34, 0);
             label_macros_small.TabIndex = 20;
             label_macros_small.Text = "Macros";
             label_macros_small.TextAlign = ContentAlignment.MiddleCenter;
             label_macros_small.Click += label_macros_small_Click;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Column1";
-            Column1.Image = Properties.Resources.icons8_play_50;
-            Column1.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            Column1.Name = "Play";
-            Column1.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn2.DataPropertyName = "title";
-            dataGridViewTextBoxColumn2.HeaderText = "Macros";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // editColumn
-            // 
-            editColumn.HeaderText = "Column2";
-            editColumn.Name = "editColumn";
-
-            editColumn.Image = Properties.Resources.icons8_edit_50__1_;
-            editColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            editColumn.Width = 50;
             // 
             // Form1
             // 
@@ -809,13 +809,13 @@ namespace Feedbacker_2._0
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridView dataGridView_Macros;
         private Label label_Message;
-        private Label label1;
-        private Label label2;
-        private Label label4;
+        private Label label_responses;
+        private Label label_assignments;
+        private Label label_macros;
         private DataGridView dataGridView_Courses;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private Panel panel_courses;
-        private Label label3;
+        private Label label_courses;
         private Panel panel_assignments;
         private Panel panel_responses;
         private Panel panel_message;
@@ -825,7 +825,7 @@ namespace Feedbacker_2._0
         private Label label_macros_small;
         private Panel panel_courses_small;
         private Label label_courses_small;
-        private DataGridViewImageColumn Column1;
+        private DataGridViewImageColumn Play;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewImageColumn editColumn;
     }
