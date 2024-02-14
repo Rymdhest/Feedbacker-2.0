@@ -1,5 +1,6 @@
 using Feedbacker_2._0.Database;
 using System.ComponentModel;
+using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -8,14 +9,15 @@ namespace Feedbacker_2._0
     public partial class Form1 : Form
     {
 
-        private string savedInformationFilePath;
-        private int lastSelectedCourseIndex = -1; //used as part of a "hack" to allow editing course names in the combobox textfield
+        private string savedInformationPath;
+        private string savedInformationFilename = "saved_info.json";
+        private string savedMacrosFilename = "saved_macros.json";
         private Boolean needSave = false;
         private SaveData saveData;
         private string programName = "Feedbacker 2.0";
         private DatabaseManager database;
-
-
+        private BindingList<Macro> macros = new BindingList<Macro> ();
+        private object textBoxBoundItem = null;
 
         private int rowHeight = 35;
         /// <summary>
@@ -24,8 +26,6 @@ namespace Feedbacker_2._0
         private class SaveData
         {
             public string lastUsedFilePath { get; set; }
-            public string signature { get; set; }
-            public string gradeAim { get; set; }
         }
         private class Macro
         {
@@ -38,6 +38,9 @@ namespace Feedbacker_2._0
         {
             InitializeComponent();
 
+
+            dataGridView_Macros.AutoGenerateColumns = false;
+            dataGridView_Macros.DataSource = macros;
 
             var assignmentHandler_Assignments = new DataGridViewDragDropHandler<Assignment>();
             dataGridView_Assignments.MouseDown += (s, e) => assignmentHandler_Assignments.DataGridView_MouseDown(s, e);
@@ -88,12 +91,11 @@ namespace Feedbacker_2._0
 
             needSave = false;
 
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), programName);
-            if (!Directory.Exists(appDataPath))
+            savedInformationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), programName);
+            if (!Directory.Exists(savedInformationPath))
             {
-                Directory.CreateDirectory(appDataPath);
+                Directory.CreateDirectory(savedInformationPath);
             }
-            savedInformationFilePath = Path.Combine(appDataPath, "saved_info.json");
 
 
             loadSavedInformation();
@@ -110,32 +112,46 @@ namespace Feedbacker_2._0
 
         }
 
+
         /// <summary>
         /// Saves the stored information to a JSON file.
         /// </summary>
         private void saveStoredInformation()
         {
             string json = JsonSerializer.Serialize(saveData);
-            File.WriteAllText(savedInformationFilePath, json);
+            File.WriteAllText(Path.Combine(savedInformationPath, savedInformationFilename), json);
+
+            string json2 = JsonSerializer.Serialize(macros);
+            File.WriteAllText(Path.Combine(savedInformationPath, savedMacrosFilename), json2);
         }
 
-        /// <summary>
-        /// Loads previously saved information from a JSON file.
-        /// </summary>
-        /// <returns>True if saved information was loaded successfully; otherwise, false.</returns>
 
-        private bool loadSavedInformation()
+
+        private void loadSavedInformation()
         {
-            if (File.Exists(savedInformationFilePath))
+            if (File.Exists(Path.Combine(savedInformationPath, savedInformationFilename)))
             {
-                string loadedJson = File.ReadAllText(savedInformationFilePath);
+                string loadedJson = File.ReadAllText(Path.Combine(savedInformationPath, savedInformationFilename));
                 saveData = JsonSerializer.Deserialize<SaveData>(loadedJson);
-                return true;
             }
             else
             {
                 saveData = new SaveData();
-                return false;
+            }
+
+
+            if (File.Exists(Path.Combine(savedInformationPath, savedMacrosFilename)))
+            {
+                string loadedJson = File.ReadAllText(Path.Combine(savedInformationPath, savedMacrosFilename));
+
+                    List<Macro> macroList = JsonSerializer.Deserialize<List<Macro>>(loadedJson);
+
+                // Clear existing macros and add the loaded ones
+                macros.Clear();
+                foreach (Macro macro in macroList)
+                {
+                    macros.Add(macro);
+                }
             }
         }
 
@@ -205,6 +221,9 @@ namespace Feedbacker_2._0
             {
                 if (dataGridView_Responses.SelectedRows[0].DataBoundItem != null)
                 {
+                    textBoxBoundItem = ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem);
+                    label_Message.Text = "Message";
+                    dataGridView_Macros.ClearSelection();
                     textBox_Message.Enabled = true;
                     string text = (((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message);
                     textBox_Message.Text = text;
@@ -279,14 +298,31 @@ namespace Feedbacker_2._0
         /// Updates the message of the selected response when the text in the text box changes.
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (dataGridView_Responses.SelectedRows.Count >= 1)
+            if (textBoxBoundItem == null) return;
+
+            if (textBoxBoundItem is Response)
             {
-                if ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem != null)
+                if (dataGridView_Responses.SelectedRows.Count >= 1)
                 {
-                    ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message = textBox_Message.Text;
-                    needSave = true;
+                    if ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem != null)
+                    {
+                        ((Response)dataGridView_Responses.SelectedRows[0].DataBoundItem).Message = textBox_Message.Text;
+                        needSave = true;
+                    }
+                }
+            } else if (textBoxBoundItem is Macro)
+            {
+                if (dataGridView_Macros.SelectedRows.Count >= 1)
+                {
+                    if ((Macro)dataGridView_Macros.SelectedRows[0].DataBoundItem != null)
+                    {
+                        ((Macro)dataGridView_Macros.SelectedRows[0].DataBoundItem).text = textBox_Message.Text;
+                        needSave = true;
+                    }
                 }
             }
+
+
 
         }
 
@@ -396,8 +432,6 @@ namespace Feedbacker_2._0
             textBox_Message.Enabled = false;
 
             label_courses_small.Text = "Courses";
-
-            lastSelectedCourseIndex = -1;
         }
 
         /// <summary>
@@ -436,27 +470,6 @@ namespace Feedbacker_2._0
         }
 
         /// <summary>
-        /// Event handler for the Click event of the "Add Signature" button.
-        /// Appends a predefined signature to the feedback message text box.
-        /// </summary>
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (textBox_Message.Enabled == true)
-                textBox_Message.AppendText(Environment.NewLine + Environment.NewLine + saveData.signature);
-        }
-
-        /// <summary>
-        /// Event handler for the Click event of the "Add Grade Aim" button.
-        /// Appends a predefined message indicating the addition of a grade aim to the feedback message text box.
-        /// </summary>
-        private void button3_Click(object sender, EventArgs e)
-        {
-            dataGridView_Responses.Visible = false;
-            if (textBox_Message.Enabled == true)
-                textBox_Message.AppendText(Environment.NewLine + Environment.NewLine + saveData.gradeAim);
-        }
-
-        /// <summary>
         /// Event handler for the Click event of the "Copy to Clipboard" button.
         /// Copies the content of the feedback message text box to the clipboard.
         /// </summary>
@@ -471,10 +484,6 @@ namespace Feedbacker_2._0
             label3.Visible = false;
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void label3_Click_1(object sender, EventArgs e)
         {

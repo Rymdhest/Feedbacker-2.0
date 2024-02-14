@@ -43,7 +43,7 @@ public class DataGridViewDragDropHandler<T>
                 {
                     // Start the drag-and-drop operation
                     DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Copy;
-                    DragDropEffects dropEffect = ((DataGridView)sender).DoDragDrop(draggedData, allowedEffects);
+                    ((DataGridView)sender).DoDragDrop(draggedData, allowedEffects);
                 }
             }
         }
@@ -51,6 +51,8 @@ public class DataGridViewDragDropHandler<T>
 
     public void DataGridView_DragDrop(object sender, DragEventArgs e)
     {
+        if (!isDragging) return;
+
         Point clientPoint = ((DataGridView)sender).PointToClient(new Point(e.X, e.Y));
         int dropIndex = ((DataGridView)sender).HitTest(clientPoint.X, clientPoint.Y).RowIndex;
 
@@ -83,11 +85,25 @@ public class DataGridViewDragDropHandler<T>
 
     public void DataGridView_DragEnter(object sender, DragEventArgs e)
     {
-        e.Effect = DragDropEffects.Move;
+        if (e.Data.GetDataPresent(typeof(T)))
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+        else
+        {
+            e.Effect = DragDropEffects.None;
+        }
     }
 
     public void DataGridView_DragOver(object sender, DragEventArgs e)
     {
-        e.Effect = DragDropEffects.Move;
+        if (e.Data.GetDataPresent(typeof(T)))
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+        else
+        {
+            e.Effect = DragDropEffects.None;
+        }
     }
 }

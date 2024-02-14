@@ -68,7 +68,6 @@ namespace Feedbacker_2._0
             dataGridView_Responses = new DataGridView();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridView_Macros = new DataGridView();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             label_Message = new Label();
             label1 = new Label();
             label2 = new Label();
@@ -86,6 +85,9 @@ namespace Feedbacker_2._0
             label_courses_small = new Label();
             panel_macros_small = new Panel();
             label_macros_small = new Label();
+            Column1 = new DataGridViewImageColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            editColumn = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Assignments).BeginInit();
             menuStrip1.SuspendLayout();
@@ -114,7 +116,7 @@ namespace Feedbacker_2._0
             textBox_Message.Margin = new Padding(0);
             textBox_Message.Multiline = true;
             textBox_Message.Name = "textBox_Message";
-            textBox_Message.Size = new Size(215, 740);
+            textBox_Message.Size = new Size(260, 740);
             textBox_Message.TabIndex = 2;
             textBox_Message.TextChanged += textBox1_TextChanged;
             // 
@@ -125,7 +127,7 @@ namespace Feedbacker_2._0
             dataGridView_Assignments.AllowUserToResizeColumns = false;
             dataGridView_Assignments.AllowUserToResizeRows = false;
             dataGridView_Assignments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView_Assignments.BackgroundColor = CustomColors.deep_gray;
+            dataGridView_Assignments.BackgroundColor = Color.FromArgb(240, 240, 240);
             dataGridView_Assignments.BorderStyle = BorderStyle.None;
             dataGridView_Assignments.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Assignments.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -171,7 +173,7 @@ namespace Feedbacker_2._0
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1512, 24);
+            menuStrip1.Size = new Size(1324, 24);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -230,7 +232,7 @@ namespace Feedbacker_2._0
             // copyClipboardButton
             // 
             copyClipboardButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            copyClipboardButton.Location = new Point(180, 0);
+            copyClipboardButton.Location = new Point(225, 0);
             copyClipboardButton.Name = "copyClipboardButton";
             copyClipboardButton.Size = new Size(35, 34);
             copyClipboardButton.TabIndex = 10;
@@ -249,7 +251,7 @@ namespace Feedbacker_2._0
             dataGridView_Responses.AllowUserToResizeColumns = false;
             dataGridView_Responses.AllowUserToResizeRows = false;
             dataGridView_Responses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView_Responses.BackgroundColor = CustomColors.deep_gray;
+            dataGridView_Responses.BackgroundColor = Color.FromArgb(240, 240, 240);
             dataGridView_Responses.BorderStyle = BorderStyle.None;
             dataGridView_Responses.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Responses.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -297,7 +299,7 @@ namespace Feedbacker_2._0
             dataGridView_Macros.AllowUserToResizeColumns = false;
             dataGridView_Macros.AllowUserToResizeRows = false;
             dataGridView_Macros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView_Macros.BackgroundColor = CustomColors.deep_gray;
+            dataGridView_Macros.BackgroundColor = Color.FromArgb(240, 240, 240);
             dataGridView_Macros.BorderStyle = BorderStyle.None;
             dataGridView_Macros.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Macros.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -311,7 +313,7 @@ namespace Feedbacker_2._0
             dataGridView_Macros.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView_Macros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_Macros.ColumnHeadersVisible = false;
-            dataGridView_Macros.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2 });
+            dataGridView_Macros.Columns.AddRange(new DataGridViewColumn[] { Column1, dataGridViewTextBoxColumn2, editColumn });
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = SystemColors.Window;
             dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -330,13 +332,11 @@ namespace Feedbacker_2._0
             dataGridView_Macros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_Macros.Size = new Size(260, 740);
             dataGridView_Macros.TabIndex = 14;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            dataGridViewTextBoxColumn2.HeaderText = "Macros";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridView_Macros.CellClick += DataGridView_Macros_CellClick;
+            dataGridView_Macros.RowsAdded += DataGridView_Macros_RowsAdded;
+            dataGridView_Macros.UserAddedRow += DataGridView_Macros_UserAddedRow;
+            dataGridView_Macros.CellEndEdit += DataGridView_Macros_CellEndEdit;
+            dataGridView_Macros.SelectionChanged += DataGridView_Macros_SelectionChanged;
             // 
             // label_Message
             // 
@@ -347,7 +347,7 @@ namespace Feedbacker_2._0
             label_Message.Location = new Point(0, 0);
             label_Message.Margin = new Padding(0);
             label_Message.Name = "label_Message";
-            label_Message.Size = new Size(215, 34);
+            label_Message.Size = new Size(260, 34);
             label_Message.TabIndex = 15;
             label_Message.Text = "Message";
             label_Message.TextAlign = ContentAlignment.MiddleCenter;
@@ -402,7 +402,7 @@ namespace Feedbacker_2._0
             dataGridView_Courses.AllowUserToResizeColumns = false;
             dataGridView_Courses.AllowUserToResizeRows = false;
             dataGridView_Courses.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView_Courses.BackgroundColor = CustomColors.deep_gray;
+            dataGridView_Courses.BackgroundColor = Color.FromArgb(240, 240, 240);
             dataGridView_Courses.BorderStyle = BorderStyle.None;
             dataGridView_Courses.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView_Courses.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -499,7 +499,7 @@ namespace Feedbacker_2._0
             panel_message.Location = new Point(835, 0);
             panel_message.Margin = new Padding(3, 0, 3, 0);
             panel_message.Name = "panel_message";
-            panel_message.Size = new Size(215, 774);
+            panel_message.Size = new Size(260, 774);
             panel_message.TabIndex = 23;
             // 
             // panel_macros
@@ -507,7 +507,7 @@ namespace Feedbacker_2._0
             panel_macros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel_macros.Controls.Add(label4);
             panel_macros.Controls.Add(dataGridView_Macros);
-            panel_macros.Location = new Point(1056, 0);
+            panel_macros.Location = new Point(3, 774);
             panel_macros.Margin = new Padding(3, 0, 0, 0);
             panel_macros.Name = "panel_macros";
             panel_macros.Size = new Size(260, 774);
@@ -526,7 +526,7 @@ namespace Feedbacker_2._0
             flowLayoutPanel1.Location = new Point(0, 24);
             flowLayoutPanel1.Margin = new Padding(0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1512, 774);
+            flowLayoutPanel1.Size = new Size(1324, 774);
             flowLayoutPanel1.TabIndex = 25;
             flowLayoutPanel1.SizeChanged += FlowLayoutPanel1_SizeChanged;
             // 
@@ -558,7 +558,7 @@ namespace Feedbacker_2._0
             // panel_macros_small
             // 
             panel_macros_small.Controls.Add(label_macros_small);
-            panel_macros_small.Location = new Point(1319, 0);
+            panel_macros_small.Location = new Point(266, 774);
             panel_macros_small.Margin = new Padding(3, 0, 0, 0);
             panel_macros_small.Name = "panel_macros_small";
             panel_macros_small.Size = new Size(34, 774);
@@ -580,12 +580,36 @@ namespace Feedbacker_2._0
             label_macros_small.TextAlign = ContentAlignment.MiddleCenter;
             label_macros_small.Click += label_macros_small_Click;
             // 
+            // Column1
+            // 
+            Column1.HeaderText = "Column1";
+            Column1.Image = Properties.Resources.icons8_play_50;
+            Column1.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Column1.Name = "Play";
+            Column1.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn2.DataPropertyName = "title";
+            dataGridViewTextBoxColumn2.HeaderText = "Macros";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // editColumn
+            // 
+            editColumn.HeaderText = "Column2";
+            editColumn.Name = "editColumn";
+
+            editColumn.Image = Properties.Resources.icons8_edit_50__1_;
+            editColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            editColumn.Width = 50;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 224, 224);
-            ClientSize = new Size(1512, 798);
+            ClientSize = new Size(1324, 798);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -613,7 +637,59 @@ namespace Feedbacker_2._0
             PerformLayout();
         }
 
-        private void recalculateMessageLayoutSize()
+        private void DataGridView_Macros_SelectionChanged(object sender, EventArgs e)
+        {
+
+            textBoxBoundItem = null;
+            textBox_Message.Enabled = false;
+            textBox_Message.Text = string.Empty;
+        }
+
+        private void DataGridView_Macros_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView_Macros.Rows[e.RowIndex].Cells["Play"].Value = Properties.Resources.icons8_play_50;
+            dataGridView_Macros.Rows[e.RowIndex].Cells["editColumn"].Value = Properties.Resources.icons8_edit_50__1_;
+        }
+
+        private void DataGridView_Macros_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            dataGridView_Macros.Rows[e.Row.Index].Cells["Play"].Value = Properties.Resources.icons8_play_50;
+            dataGridView_Macros.Rows[e.Row.Index].Cells["editColumn"].Value = Properties.Resources.icons8_edit_50__1_;
+        }
+
+
+        private void DataGridView_Macros_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            dataGridView_Macros.Rows[e.RowIndex].Cells["Play"].Value = Properties.Resources.icons8_play_50;
+            dataGridView_Macros.Rows[e.RowIndex].Cells["editColumn"].Value = Properties.Resources.icons8_edit_50__1_;
+        }
+
+        private void DataGridView_Macros_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 0)
+            {
+                // Get the selected macro and execute it
+                Macro selectedMacro = (Macro)dataGridView_Macros.Rows[e.RowIndex].DataBoundItem;
+                textBox_Message.AppendText(selectedMacro.text);
+            }
+
+            // edit the macro
+            if (e.RowIndex >= 0 && e.ColumnIndex == 2)
+            {
+                textBoxBoundItem = ((Macro)dataGridView_Macros.Rows[e.RowIndex].DataBoundItem);
+                //do we have anything selected?
+                if (textBoxBoundItem != null)
+                {
+                    dataGridView_Responses.ClearSelection();
+                    label_Message.Text = "Macro Text";
+                    textBox_Message.Enabled = true;
+                    string text = (((Macro)textBoxBoundItem).text);
+                    textBox_Message.Text = text;
+                }
+            }
+        }
+
+            private void recalculateMessageLayoutSize()
         {
             int remainingWidth = flowLayoutPanel1.ClientSize.Width;
 
@@ -709,14 +785,7 @@ namespace Feedbacker_2._0
                 e.PaintContent(e.CellBounds);
                 e.Handled = true;
             }
-            int lastRowIndex = dataGridView_Courses.Rows.Count - 1;
-            DataGridViewRow lastRow = dataGridView_Courses.Rows[lastRowIndex];
 
-            // Set a different background color or any other visual indicator
-            lastRow.DefaultCellStyle.BackColor = Color.LightGreen;
-            lastRow.DefaultCellStyle.SelectionBackColor = Color.DarkGreen;
-
-            // Optional: Disable editing for this row if you only want to add new rows
 
         }
 
@@ -739,7 +808,6 @@ namespace Feedbacker_2._0
         private DataGridView dataGridView_Responses;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridView dataGridView_Macros;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private Label label_Message;
         private Label label1;
         private Label label2;
@@ -757,5 +825,8 @@ namespace Feedbacker_2._0
         private Label label_macros_small;
         private Panel panel_courses_small;
         private Label label_courses_small;
+        private DataGridViewImageColumn Column1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewImageColumn editColumn;
     }
 }

@@ -37,6 +37,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -53,6 +61,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -160,15 +184,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Feedbacker 2.0"
-        "ProductCode" = "8:{3C928088-B8CB-4B33-BF94-23F07A63DBAB}"
-        "PackageCode" = "8:{16B3EBB2-D44B-4160-A1FB-28C4DF7F5C79}"
+        "ProductCode" = "8:{D49702DC-9CDB-441E-BFDB-02221BED181F}"
+        "PackageCode" = "8:{F25C8389-124C-4E05-B926-541D84C70FD8}"
         "UpgradeCode" = "8:{B13DE91E-1D22-41B5-AEDA-2C5AC543B9C1}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:We Teach It"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -710,7 +734,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5F823EDCA009433BA1B7FDB5C36CCCA3"
             {
-            "SourcePath" = "8:..\\Feedbacker 2.0\\obj\\Release\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Feedbacker 2.0\\obj\\Release\\net6.0-windows7.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_97B7C15FDAFF4DD0AF16F6A33E0B834E"
