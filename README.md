@@ -35,6 +35,13 @@ Feedbacker 2.0 uses an SQLite database to store your project data. The `Database
 
 <img src="https://github.com/Rymdhest/Feedbacker-2.0/assets/52751206/0d6a9b64-fd5a-4abf-96f6-68c87d08e61e" width="800"/>
 
+## Auto Sort
+
+Right click on the courses tab and check in auto sort from the dropdown.
+
+## Stored Information
+
+Macros and other variables are stored locally under ...%AppData%\Roaming\Feedbacker 2.0.
 
 ## Under the Hood
 
